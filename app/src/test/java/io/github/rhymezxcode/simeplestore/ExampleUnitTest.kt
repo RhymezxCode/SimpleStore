@@ -1,4 +1,4 @@
-package io.github.rhymezxcode.simplepreference
+package io.github.rhymezxcode.simeplestore
 
 import org.junit.Test
 
