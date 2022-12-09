@@ -33,8 +33,9 @@ android {
 dependencies {
     //DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+    //Encrypted Datastore
+    implementation"io.github.osipxd:security-crypto-datastore-preferences:1.0.0-alpha03"
     //Encryption
-    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha04'
-    //Serializer
+    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha03'
     implementation 'com.google.crypto.tink:tink-android:1.7.0'
 }

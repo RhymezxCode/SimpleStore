@@ -5,11 +5,21 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStoreFile
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.google.crypto.tink.Aead
+import com.google.crypto.tink.KeyTemplates
+import com.google.crypto.tink.integration.android.AndroidKeysetManager
+import io.github.osipxd.security.crypto.EncryptedDataStoreOptions
+import io.github.osipxd.security.crypto.createEncrypted
 
 @RequiresApi(Build.VERSION_CODES.M)
-object SharedPreferenceCryptoManager {
+object CryptoManager {
 
     private fun getMasterKey(context: Context): MasterKey? {
         try {
@@ -35,6 +45,28 @@ object SharedPreferenceCryptoManager {
             }
         } catch (e: Exception) {
             Log.e(javaClass.simpleName, "Error on getting encrypted shared preferences", e)
+        }
+        return null
+    }
+
+    fun getEncryptedDatastorePreferences(
+        context: Context,
+        prefName: String?
+    ): DataStore<Preferences>? {
+        try {
+
+            val dataStore = getMasterKey(context)?.let {
+                PreferenceDataStoreFactory.createEncrypted {
+                    EncryptedFile(
+                        context,
+                        context.dataStoreFile(prefName!!),
+                        masterKey = it
+                    )
+                }
+            }
+            return dataStore
+        } catch (e: Exception) {
+            Log.e(javaClass.simpleName, "Error on getting encrypted data store preferences", e)
         }
         return null
     }
