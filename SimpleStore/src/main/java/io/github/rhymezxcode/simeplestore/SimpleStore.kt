@@ -3,36 +3,41 @@ package io.github.rhymezxcode.simeplestore
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 @RequiresApi(Build.VERSION_CODES.M)
 class SimpleStore(
     private val context: Context?,
     private val name: String?,
-    private val encrypted: Boolean
+    private val encrypted: Boolean?,
+    private val dispatcher: CoroutineDispatcher?
 ) {
 
-    fun createSharedPreference(): SharedPreference? {
+    fun sharedPreference(): SharedPreference? {
         return context?.let {
             SharedPreference(
                 context = it,
                 prefName = name,
-                encrypted = encrypted
+                encrypted = encrypted,
+                dispatcher = dispatcher
             )
         }
     }
 
-    fun createDatastorePreference(): DatastorePreference? {
+    fun datastorePreference(): DatastorePreference? {
         return context?.let {
             DatastorePreference(
                 context = it,
                 prefName = name,
-                encrypted = encrypted
+                encrypted = encrypted,
+                dispatcher = dispatcher
             )
         }
     }
 
     private constructor(builder: Builder) : this(
-        builder.context, builder.name, builder.encrypted == false
+        builder.context, builder.name, builder.encrypted, builder.dispatcher
     )
 
     class Builder {
@@ -43,10 +48,14 @@ class SimpleStore(
             private set
         var encrypted: Boolean? = null
             private set
+        var dispatcher: CoroutineDispatcher? = null
+            private set
 
         fun context(context: Context) = apply { this.context = context }
 
         fun storeName(name: String) = apply { this.name = name }
+
+        fun dispatcher(dispatcher: CoroutineDispatcher) = apply { this.dispatcher = dispatcher }
 
         fun encryption(encrypted: Boolean) = apply { this.encrypted = encrypted }
 

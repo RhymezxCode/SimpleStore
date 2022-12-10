@@ -17,14 +17,22 @@ import androidx.security.crypto.MasterKeys
 import io.github.osipxd.security.crypto.createEncrypted
 import io.github.rhymezxcode.simeplestore.Constants.SIMPLE_STORE
 import io.github.rhymezxcode.simeplestore.Constants.SIMPLE_STORE_DATASTORE
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 @RequiresApi(Build.VERSION_CODES.M)
 class DatastorePreference(
     private val context: Context,
     private val prefName: String? = null,
-    private val encrypted: Boolean? = false
+    private val encrypted: Boolean? = false,
+    private val dispatcher: CoroutineDispatcher? = null
 ) {
 
     private val Context._dataStore: DataStore<Preferences>
@@ -44,37 +52,43 @@ class DatastorePreference(
 
 
     suspend fun saveStringToStore(key: String?, value: String?) {
-        val dataStoreKey = stringPreferencesKey(key!!)
-        getDefaultPreference()?.edit { settings ->
-            settings[dataStoreKey] = value ?: ""
+        CoroutineScope(dispatcher?: IO).launch {
+            val dataStoreKey = stringPreferencesKey(key!!)
+            getDefaultPreference()?.edit { settings ->
+                settings[dataStoreKey] = value ?: ""
+            }
         }
     }
 
     suspend fun saveBooleanToStore(key: String?, value: Boolean?) {
-        val dataStoreKey = booleanPreferencesKey(key!!)
-        getDefaultPreference()?.edit { settings ->
-            settings[dataStoreKey] = value ?: false
+        CoroutineScope(dispatcher?: IO).launch {
+            val dataStoreKey = booleanPreferencesKey(key!!)
+            getDefaultPreference()?.edit { settings ->
+                settings[dataStoreKey] = value ?: false
+            }
         }
     }
 
-    suspend fun getStringFromStore(key: String?): String? {
+    fun getStringFromStore(key: String?): Flow<String>? {
         val dataStoreKey = stringPreferencesKey(key!!)
         return getDefaultPreference()?.data?.map {
             it[dataStoreKey] ?: ""
-        }?.first()
+        }
     }
 
-    suspend fun getBooleanFromStore(key: String?): Boolean? {
+    fun getBooleanFromStore(key: String?): Flow<Boolean>? {
         val dataStoreKey = booleanPreferencesKey(key!!)
         return getDefaultPreference()?.data?.map {
             it[dataStoreKey] ?: false
-        }?.first()
+        }
     }
 
 
     suspend fun clearAllTheStore() {
-        getDefaultPreference()?.edit {
-            it.clear()
+        CoroutineScope(dispatcher?: IO).launch {
+            getDefaultPreference()?.edit {
+                it.clear()
+            }
         }
     }
 
