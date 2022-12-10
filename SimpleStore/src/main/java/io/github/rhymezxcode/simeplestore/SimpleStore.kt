@@ -1,12 +1,8 @@
-package io.github.rhymezxcode.networkstateobserver.network
+package io.github.rhymezxcode.simeplestore
 
-import android.app.Activity
 import android.content.Context
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Build
 import androidx.annotation.RequiresApi
-import io.github.rhymezxcode.simeplestore.DatastorePreference
-import io.github.rhymezxcode.simeplestore.SharedPreference
 
 @RequiresApi(Build.VERSION_CODES.M)
 class SimpleStore(
@@ -48,11 +44,11 @@ class SimpleStore(
         var encrypted: Boolean? = null
             private set
 
-        fun getApplicationContext(context: Context) = apply { this.context = context }
+        fun context(context: Context) = apply { this.context = context }
 
-        fun getStoreName(name: String) = apply { this.name = name }
+        fun storeName(name: String) = apply { this.name = name }
 
-        fun getEncryptionBoolean(encrypted: Boolean) = apply { this.encrypted = encrypted }
+        fun encryption(encrypted: Boolean) = apply { this.encrypted = encrypted }
 
         fun build() = SimpleStore(this)
     }
