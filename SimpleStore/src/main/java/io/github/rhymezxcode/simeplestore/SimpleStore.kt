@@ -30,8 +30,7 @@ class SimpleStore(
             DatastorePreference(
                 context = it,
                 prefName = name,
-                encrypted = encrypted,
-                dispatcher = dispatcher
+                encrypted = encrypted
             )
         }
     }
