@@ -15,7 +15,6 @@ import androidx.security.crypto.MasterKey
 import com.google.crypto.tink.Aead
 import com.google.crypto.tink.KeyTemplates
 import com.google.crypto.tink.integration.android.AndroidKeysetManager
-import io.github.osipxd.security.crypto.EncryptedDataStoreOptions
 import io.github.osipxd.security.crypto.createEncrypted
 
 @RequiresApi(Build.VERSION_CODES.M)
@@ -54,16 +53,31 @@ object CryptoManager {
         prefName: String?
     ): DataStore<Preferences>? {
         try {
+            val aead = AndroidKeysetManager.Builder()
+                .withSharedPref(context, "master_keyset",
+                    "master_key_preference")
+                .withKeyTemplate(KeyTemplates.get("AES256_GCM"))
+                .withMasterKeyUri("android-keystore://master_key")
+                .build()
+                .keysetHandle
+                .getPrimitive(Aead::class.java)
 
-            val dataStore = getMasterKey(context)?.let {
-                PreferenceDataStoreFactory.createEncrypted {
+            val dataStore = PreferenceDataStoreFactory.createEncrypted(
+                encryptionOptions = {
+                    // Specify fallback Aead to make it possible to decrypt data encrypted with it
+                    fallbackAead = aead
+                }
+            ) {
+                getMasterKey(context)?.let {
                     EncryptedFile(
-                        context,
-                        context.dataStoreFile(prefName!!),
+                        context = context,
+                        // The file should have extension .preferences_pb
+                        file = context.dataStoreFile(prefName!!),
                         masterKey = it
                     )
-                }
+                }!!
             }
+
             return dataStore
         } catch (e: Exception) {
             Log.e(javaClass.simpleName, "Error on getting encrypted data store preferences", e)

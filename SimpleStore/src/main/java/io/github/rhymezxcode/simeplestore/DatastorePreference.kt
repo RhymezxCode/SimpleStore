@@ -28,7 +28,7 @@ class DatastorePreference(
 ) {
 
     private val Context._dataStore: DataStore<Preferences>
-            by preferencesDataStore(prefName ?: SIMPLE_STORE)
+            by preferencesDataStore(prefName ?: SIMPLE_STORE_DATASTORE)
 
     private val dataStore: DataStore<Preferences> = context._dataStore
 
@@ -37,7 +37,6 @@ class DatastorePreference(
         return when (encrypted) {
             true -> CryptoManager
                 .getEncryptedDatastorePreferences(context, prefName ?: SIMPLE_STORE_DATASTORE)
-
             false -> dataStore
             else -> dataStore
         }
