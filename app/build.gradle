@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'io.github.rhymezxcode.simplepreference'
+    namespace 'io.github.rhymezxcode.simplestore'
     compileSdk 33
 
     defaultConfig {
-        applicationId "io.github.rhymezxcode.simplepreference"
+        applicationId "io.github.rhymezxcode.simplestore"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -29,6 +29,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    buildFeatures{
+        viewBinding = true
     }
 }
 

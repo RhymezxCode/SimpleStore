@@ -53,20 +53,8 @@ object CryptoManager {
         prefName: String?
     ): DataStore<Preferences>? {
         try {
-            val aead = AndroidKeysetManager.Builder()
-                .withSharedPref(context, "master_keyset",
-                    "master_key_preference")
-                .withKeyTemplate(KeyTemplates.get("AES256_GCM"))
-                .withMasterKeyUri("android-keystore://master_key")
-                .build()
-                .keysetHandle
-                .getPrimitive(Aead::class.java)
-
             val dataStore = PreferenceDataStoreFactory.createEncrypted(
-                encryptionOptions = {
-                    // Specify fallback Aead to make it possible to decrypt data encrypted with it
-                    fallbackAead = aead
-                }
+                encryptionOptions = {}
             ) {
                 getMasterKey(context)?.let {
                     EncryptedFile(
