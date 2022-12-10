@@ -1,4 +1,4 @@
-package io.github.rhymezxcode.simeplestore
+package io.github.rhymezxcode.simplestore
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity

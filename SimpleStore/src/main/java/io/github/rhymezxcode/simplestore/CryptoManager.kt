@@ -1,4 +1,4 @@
-package io.github.rhymezxcode.simeplestore
+package io.github.rhymezxcode.simplestore
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -12,9 +12,6 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.google.crypto.tink.Aead
-import com.google.crypto.tink.KeyTemplates
-import com.google.crypto.tink.integration.android.AndroidKeysetManager
 import io.github.osipxd.security.crypto.createEncrypted
 
 @RequiresApi(Build.VERSION_CODES.M)

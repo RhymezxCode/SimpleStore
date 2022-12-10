@@ -1,18 +1,16 @@
-package io.github.rhymezxcode.simeplestore
+package io.github.rhymezxcode.simplestore
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import io.github.rhymezxcode.simeplestore.Constants.SIMPLE_STORE
+import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 @RequiresApi(Build.VERSION_CODES.M)
 class SharedPreference(

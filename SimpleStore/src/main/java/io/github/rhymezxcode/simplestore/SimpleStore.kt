@@ -1,10 +1,9 @@
-package io.github.rhymezxcode.simeplestore
+package io.github.rhymezxcode.simplestore
 
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
 @RequiresApi(Build.VERSION_CODES.M)
 class SimpleStore(

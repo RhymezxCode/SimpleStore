@@ -1,4 +1,4 @@
-package io.github.rhymezxcode.simeplestore
+package io.github.rhymezxcode.simplestore
 
 import android.content.Context
 import android.os.Build
@@ -9,7 +9,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import io.github.rhymezxcode.simeplestore.Constants.SIMPLE_STORE
+import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
