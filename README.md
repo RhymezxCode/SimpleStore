@@ -175,6 +175,19 @@ dependencies {
                     .getBooleanFromStore("default")
             }
 ```
+
+* And Lastly, to clear your store for Datastore or SharedPreference:
+```kt
+       lifecycleScope.launchWhenCreated {
+        val default = store.getType<DatastorePreference>()
+                    .clearAllTheStore()
+            }
+            
+            lifecycleScope.launchWhenCreated {
+        val default = store.getType<SharedPreference>()
+                    .clearAllTheStore()
+            }
+```
     
 ### 3. You can also inject SimpleStore, and use it everywhere in your app with Hilt :syringe: :
 
