@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    namespace 'io.github.rhymezxcode.simplestore'
+    namespace 'io.github.rhymezxcode.simplestore.example'
     compileSdk 33
 
     defaultConfig {
         applicationId "io.github.rhymezxcode.simplestore.example"
-        minSdk 21
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName "1.0"
