@@ -14,11 +14,7 @@ import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE_ENCRYPTED
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = SIMPLE_STORE)
-private val Context.encryptedDatastore: DataStore<Preferences>?
-    @RequiresApi(Build.VERSION_CODES.M)
-    get() = CryptoManager
-        .getEncryptedDatastorePreferences(this, SIMPLE_STORE_ENCRYPTED)
+
 
 @RequiresApi(Build.VERSION_CODES.M)
 class DatastorePreference(
@@ -30,7 +26,6 @@ class DatastorePreference(
             by preferencesDataStore(prefName ?: SIMPLE_STORE)
 
     private val dataStore: DataStore<Preferences> = context._dataStore
-
 
     private fun getDefaultPreference(): DataStore<Preferences>? {
         return when (encrypted) {
