@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.5.21'
 }
 
 android {
@@ -33,9 +34,8 @@ android {
 dependencies {
     //DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
-    //Encrypted Datastore
-    implementation"io.github.osipxd:security-crypto-datastore-preferences:1.0.0-alpha03"
     //Encryption
     implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha04'
-    implementation 'com.google.crypto.tink:tink-android:1.7.0'
+    //Serialization
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2'
 }

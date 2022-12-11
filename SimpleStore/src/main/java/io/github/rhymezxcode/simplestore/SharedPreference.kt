@@ -34,7 +34,7 @@ class SharedPreference(
 
     private fun getDefaultPreference(): SharedPreferences? {
         return when (encrypted) {
-            true -> CryptoManager
+            true -> CryptoManager()
                 .getEncryptedSharedPreferences(context)
             false -> getSharedPreferences()
             else -> getSharedPreferences()

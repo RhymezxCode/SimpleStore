@@ -8,7 +8,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 @RequiresApi(Build.VERSION_CODES.M)
 class SimpleStore(
     private val context: Context?,
-    private val name: String?,
     private val encrypted: Boolean?,
     private val dispatcher: CoroutineDispatcher?
 ) {
@@ -42,7 +41,7 @@ class SimpleStore(
     }
 
     private constructor(builder: Builder) : this(
-        builder.context, builder.name, builder.encrypted, builder.dispatcher
+        builder.context, builder.encrypted, builder.dispatcher
     )
 
     class Builder {
