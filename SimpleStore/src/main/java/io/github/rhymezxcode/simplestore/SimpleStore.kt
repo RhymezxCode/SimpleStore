@@ -26,7 +26,6 @@ class SimpleStore(
         return context?.let {
             SharedPreference(
                 context = it,
-                prefName = name,
                 encrypted = encrypted,
                 dispatcher = dispatcher
             )
@@ -37,7 +36,6 @@ class SimpleStore(
         return context?.let {
             DatastorePreference(
                 context = it,
-                prefName = name,
                 encrypted = encrypted
             )
         }
@@ -60,7 +58,7 @@ class SimpleStore(
 
         fun context(context: Context) = apply { this.context = context }
 
-        fun storeName(name: String) = apply { this.name = name }
+        fun storeName(name: String) = apply { Constants.SIMPLE_STORE = name }
 
         fun dispatcher(dispatcher: CoroutineDispatcher) = apply { this.dispatcher = dispatcher }
 

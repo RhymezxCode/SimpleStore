@@ -15,7 +15,6 @@ import kotlinx.coroutines.withContext
 @RequiresApi(Build.VERSION_CODES.M)
 class SharedPreference(
     private val context: Context,
-    private val prefName: String? = null,
     private val encrypted: Boolean? = false,
     private val dispatcher: CoroutineDispatcher? = null
 ) {
@@ -23,7 +22,7 @@ class SharedPreference(
     private fun getSharedPreferences(): SharedPreferences? {
         try {
             return context.getSharedPreferences(
-                prefName ?: SIMPLE_STORE,
+                SIMPLE_STORE,
                 Context.MODE_PRIVATE
             )
         } catch (e: Exception) {
@@ -36,7 +35,7 @@ class SharedPreference(
     private fun getDefaultPreference(): SharedPreferences? {
         return when (encrypted) {
             true -> CryptoManager
-                .getEncryptedSharedPreferences(context, prefName ?: SIMPLE_STORE)
+                .getEncryptedSharedPreferences(context)
             false -> getSharedPreferences()
             else -> getSharedPreferences()
         }

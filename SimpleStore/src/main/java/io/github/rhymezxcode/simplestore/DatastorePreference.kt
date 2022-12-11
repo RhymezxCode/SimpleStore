@@ -10,29 +10,27 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE
-import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE_ENCRYPTED
+import io.github.rhymezxcode.simplestore.CryptoManager.getEncryptedDatastorePreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
+private val Context.dataStore: DataStore<Preferences>
+        by preferencesDataStore(SIMPLE_STORE)
+private val Context.encryptedDatastore: DataStore<Preferences>?
+    @RequiresApi(Build.VERSION_CODES.M)
+    get() = getEncryptedDatastorePreferences(this)
 
 @RequiresApi(Build.VERSION_CODES.M)
 class DatastorePreference(
     private val context: Context,
-    private val prefName: String? = null,
     private val encrypted: Boolean? = false
 ) {
-    private val Context._dataStore: DataStore<Preferences>
-            by preferencesDataStore(prefName ?: SIMPLE_STORE)
-
-    private val dataStore: DataStore<Preferences> = context._dataStore
 
     private fun getDefaultPreference(): DataStore<Preferences>? {
         return when (encrypted) {
-            true -> CryptoManager
-                .getEncryptedDatastorePreferences(context, prefName ?: SIMPLE_STORE)
-            false -> dataStore
-            else -> dataStore
+            true -> context.encryptedDatastore
+            false -> context.dataStore
+            else -> context.dataStore
         }
     }
 

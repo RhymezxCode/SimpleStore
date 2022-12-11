@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.rhymezxcode.simplestore.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var store: SimpleStore
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launchWhenCreated {
 
                 store.getType<DatastorePreference>()
-                    .getStringFromStore("name")?.collectLatest {
+                    .getStringFromStore("name")?.collectLatest{
                         binding.sharedPreferenceValue.text = it
                     }
             }

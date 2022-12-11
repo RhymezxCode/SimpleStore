@@ -28,12 +28,12 @@ object CryptoManager {
         return null
     }
 
-    fun getEncryptedSharedPreferences(context: Context, prefName: String?): SharedPreferences? {
+    fun getEncryptedSharedPreferences(context: Context): SharedPreferences? {
         try {
             return getMasterKey(context)?.let {
                 EncryptedSharedPreferences.create(
                     context,
-                    prefName ?: Constants.SIMPLE_STORE,
+                    Constants.SIMPLE_STORE,
                     it,  // calling the method above for creating MasterKey
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
@@ -46,8 +46,7 @@ object CryptoManager {
     }
 
     fun getEncryptedDatastorePreferences(
-        context: Context,
-        prefName: String?
+        context: Context
     ): DataStore<Preferences>? {
         try {
             val dataStore = PreferenceDataStoreFactory.createEncrypted(
@@ -57,7 +56,8 @@ object CryptoManager {
                     EncryptedFile(
                         context = context,
                         // The file should have extension .preferences_pb
-                        file = context.dataStoreFile("$prefName.preferences_pb"),
+                        file = context.dataStoreFile(
+                            "${Constants.SIMPLE_STORE}.preferences_pb"),
                         masterKey = it
                     )
                 }!!
