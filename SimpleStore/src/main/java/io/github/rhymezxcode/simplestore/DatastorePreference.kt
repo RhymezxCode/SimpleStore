@@ -26,13 +26,14 @@ class DatastorePreference(
     private val context: Context,
     private val encrypted: Boolean? = false
 ) {
+    private val exception = Exception("You have to state if your .encryption() " +
+            "is either true or false in your SimpleStore.builder()")
 
     private inline fun <reified T> getDefaultPreference(): T {
         return when (encrypted) {
             true -> context.encryptedDatastore as T
             false -> context.dataStore as T
-            else -> throw Exception("You have to state if your .encryption() " +
-                    "is either true or false in your builder class")
+            else -> throw exception
         }
     }
 
@@ -54,8 +55,7 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("You have to state if your .encryption() " +
-                    "is either true or false in your builder class")
+            else -> throw exception
         }
     }
 
@@ -77,8 +77,7 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("You have to state if your .encryption() " +
-                    "is either true or false in your builder class")
+            else -> throw exception
         }
 
     }
@@ -98,8 +97,7 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("You have to state if your .encryption() " +
-                    "is either true or false in your builder class")
+            else -> throw exception
         }
     }
 
@@ -118,8 +116,7 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("You have to state if your .encryption() " +
-                    "is either true or false in your builder class")
+            else -> throw exception
         }
     }
 
@@ -142,8 +139,7 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("You have to state if your .encryption() " +
-                    "is either true or false in your builder class")
+            else -> throw exception
         }
     }
 
