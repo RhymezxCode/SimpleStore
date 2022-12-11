@@ -19,7 +19,7 @@ object AppModule {
         @ApplicationContext context: Context
     ) = SimpleStore.Builder()
         .context(context = context)
-        .encryption(encrypted = false)
+        .encryption(encrypted = true)
         .dispatcher(dispatcher = Dispatchers.Default)
         .build()
 
