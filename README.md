@@ -2,7 +2,7 @@
 <h1>SimpleStore Android Library</h1>
 
 <a href="https://android-arsenal.com/api?level=23" target="blank">
-    <img src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat" alt="SimpleStore Android Library least API level" />
+    <img src="https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat" alt="SimpleStore Android Library least API level" />
 </a>
 <a href="https://jitpack.io/#RhymezxCode/SimpleStore" target="blank">
     <img src="https://jitpack.io/v/RhymezxCode/SimpleStore.svg" alt="SimpleStore Android Library on jitpack.io" />
