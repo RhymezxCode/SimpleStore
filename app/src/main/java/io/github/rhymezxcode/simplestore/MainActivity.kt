@@ -32,18 +32,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.store.setOnClickListener {
             lifecycleScope.launch {
-                store.getType<DatastorePreference>().saveStringToStore(
+                store.getType<SharedPreference>().saveStringToStore(
                     "name",
                     binding.editTextTextPersonName.text.toString()
                 )
             }
 
             lifecycleScope.launchWhenCreated {
-
-                store.getType<DatastorePreference>()
-                    .getStringFromStore("name").collectLatest{
-                        binding.sharedPreferenceValue.text = it
-                    }
+                binding.sharedPreferenceValue.text =
+                    store.getType<SharedPreference>()
+                        .getStringFromStore("name")
             }
         }
     }
