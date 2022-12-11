@@ -1,14 +1,12 @@
+@file:Suppress("NewAPI")
 package io.github.rhymezxcode.simplestore
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.datastore.core.Serializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-@RequiresApi(Build.VERSION_CODES.M)
 class SimpleStoreSerializer(
     private val cryptoManager: CryptoManager
 ) : Serializer<Store> {

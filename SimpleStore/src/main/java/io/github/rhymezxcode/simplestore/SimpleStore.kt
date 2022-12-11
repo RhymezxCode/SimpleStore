@@ -1,3 +1,4 @@
+@file:Suppress("NewAPI")
 package io.github.rhymezxcode.simplestore
 
 import android.content.Context
@@ -5,7 +6,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.CoroutineDispatcher
 
-@RequiresApi(Build.VERSION_CODES.M)
 class SimpleStore(
     private val context: Context?,
     private val encrypted: Boolean?,

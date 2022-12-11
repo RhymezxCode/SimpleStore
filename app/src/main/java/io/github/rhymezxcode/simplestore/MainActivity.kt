@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launchWhenCreated {
 
                 store.getType<DatastorePreference>()
-                    .getStringFromStore("name")?.collectLatest{
+                    .getStringFromStore("name").collectLatest{
                         binding.sharedPreferenceValue.text = it
                     }
             }

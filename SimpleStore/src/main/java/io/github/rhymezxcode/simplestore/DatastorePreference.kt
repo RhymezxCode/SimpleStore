@@ -1,8 +1,8 @@
+@file:Suppress("NewAPI")
+
 package io.github.rhymezxcode.simplestore
 
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
@@ -17,22 +17,22 @@ import kotlinx.coroutines.flow.map
 private val Context.dataStore: DataStore<Preferences>
         by preferencesDataStore(SIMPLE_STORE)
 
-@RequiresApi(Build.VERSION_CODES.M)
+private val Context.encryptedDatastore by dataStore(
+    fileName = "$SIMPLE_STORE.json",
+    serializer = SimpleStoreSerializer(CryptoManager())
+)
+
 class DatastorePreference(
     private val context: Context,
     private val encrypted: Boolean? = false
 ) {
 
-    private val Context.encryptedDatastore by dataStore(
-        fileName = "$SIMPLE_STORE.json",
-        serializer = SimpleStoreSerializer(CryptoManager())
-    )
-
     private inline fun <reified T> getDefaultPreference(): T {
         return when (encrypted) {
             true -> context.encryptedDatastore as T
             false -> context.dataStore as T
-            else -> throw Exception("Always state if your .encryption() is either true or false")
+            else -> throw Exception("You have to state if your .encryption() " +
+                    "is either true or false in your builder class")
         }
     }
 
@@ -54,7 +54,8 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("Always state if your .encryption() is either true or false")
+            else -> throw Exception("You have to state if your .encryption() " +
+                    "is either true or false in your builder class")
         }
     }
 
@@ -76,7 +77,8 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("Always state if your .encryption() is either true or false")
+            else -> throw Exception("You have to state if your .encryption() " +
+                    "is either true or false in your builder class")
         }
 
     }
@@ -96,7 +98,8 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("Always state if your .encryption() is either true or false")
+            else -> throw Exception("You have to state if your .encryption() " +
+                    "is either true or false in your builder class")
         }
     }
 
@@ -115,7 +118,8 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("Always state if your .encryption() is either true or false")
+            else -> throw Exception("You have to state if your .encryption() " +
+                    "is either true or false in your builder class")
         }
     }
 
@@ -138,7 +142,8 @@ class DatastorePreference(
                 }
             }
 
-            else -> throw Exception("Always state if your .encryption() is either true or false")
+            else -> throw Exception("You have to state if your .encryption() " +
+                    "is either true or false in your builder class")
         }
     }
 

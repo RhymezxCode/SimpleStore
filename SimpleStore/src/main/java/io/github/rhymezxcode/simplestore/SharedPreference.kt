@@ -1,3 +1,4 @@
+@file:Suppress("NewAPI")
 package io.github.rhymezxcode.simplestore
 
 import android.content.Context
@@ -12,7 +13,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@RequiresApi(Build.VERSION_CODES.M)
 class SharedPreference(
     private val context: Context,
     private val encrypted: Boolean? = false,
