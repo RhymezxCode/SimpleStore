@@ -19,9 +19,8 @@ object AppModule {
         @ApplicationContext context: Context
     ) = SimpleStore.Builder()
         .context(context = context)
-        .storeName("Newubb")
+        .storeName("AnyName")
         .encryption(encrypted = true)
-        .dispatcher(dispatcher = Dispatchers.Default)
         .build()
 
 

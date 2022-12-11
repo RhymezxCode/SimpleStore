@@ -8,13 +8,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.rhymezxcode.simplestore.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers.Default
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//@RequiresApi(Build.VERSION_CODES.M)
 @RequiresApi(Build.VERSION_CODES.M)
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
