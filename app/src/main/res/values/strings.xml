@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SimpleStoreSample</string>
+    <string name="usage">Usage</string>
+    <string name="shared_preference">Shared Preference:</string>
+    <string name="null_">null</string>
+    <string name="encrypted_shared_preference">Encrypted shared preference:</string>
+    <string name="datastore_preference">Datastore Preference:</string>
+    <string name="encrypted_datastore_preference">Encrypted datastore preference:</string>
+    <string name="enter_your_name_here">Enter your name here</string>
+    <string name="store">Store</string>
 </resources>

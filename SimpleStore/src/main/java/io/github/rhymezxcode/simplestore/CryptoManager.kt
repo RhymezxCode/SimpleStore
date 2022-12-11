@@ -57,7 +57,7 @@ object CryptoManager {
                     EncryptedFile(
                         context = context,
                         // The file should have extension .preferences_pb
-                        file = context.dataStoreFile(prefName!!),
+                        file = context.dataStoreFile("$prefName.preferences_pb"),
                         masterKey = it
                     )
                 }!!

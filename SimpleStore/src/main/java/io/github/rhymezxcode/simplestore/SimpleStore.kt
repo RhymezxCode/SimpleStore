@@ -13,7 +13,16 @@ class SimpleStore(
     private val dispatcher: CoroutineDispatcher?
 ) {
 
-    fun sharedPreference(): SharedPreference? {
+    @Suppress("NON_PUBLIC_CALL_FROM_PUBLIC_INLINE")
+    inline fun <reified T> getType(): T {
+        return when (T::class.java) {
+            SharedPreference::class.java -> sharedPreference() as T
+            DatastorePreference::class.java -> datastorePreference() as T
+            else -> throw Exception("Unhandled return type for preference")
+        }
+    }
+
+    private fun sharedPreference(): SharedPreference? {
         return context?.let {
             SharedPreference(
                 context = it,
@@ -24,7 +33,7 @@ class SimpleStore(
         }
     }
 
-    fun datastorePreference(): DatastorePreference? {
+    private fun datastorePreference(): DatastorePreference? {
         return context?.let {
             DatastorePreference(
                 context = it,
@@ -39,13 +48,13 @@ class SimpleStore(
     )
 
     class Builder {
-
         var context: Context? = null
             private set
         var name: String? = null
             private set
         var encrypted: Boolean? = null
             private set
+
         var dispatcher: CoroutineDispatcher? = null
             private set
 

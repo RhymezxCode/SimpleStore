@@ -10,8 +10,15 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE
+import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE_ENCRYPTED
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = SIMPLE_STORE)
+private val Context.encryptedDatastore: DataStore<Preferences>?
+    @RequiresApi(Build.VERSION_CODES.M)
+    get() = CryptoManager
+        .getEncryptedDatastorePreferences(this, SIMPLE_STORE_ENCRYPTED)
 
 @RequiresApi(Build.VERSION_CODES.M)
 class DatastorePreference(
@@ -19,7 +26,6 @@ class DatastorePreference(
     private val prefName: String? = null,
     private val encrypted: Boolean? = false
 ) {
-
     private val Context._dataStore: DataStore<Preferences>
             by preferencesDataStore(prefName ?: SIMPLE_STORE)
 
@@ -35,7 +41,6 @@ class DatastorePreference(
         }
     }
 
-
     suspend fun saveStringToStore(key: String?, value: String?) {
         val dataStoreKey = stringPreferencesKey(key!!)
         getDefaultPreference()?.edit { settings ->
@@ -44,10 +49,10 @@ class DatastorePreference(
     }
 
     suspend fun saveBooleanToStore(key: String?, value: Boolean?) {
-            val dataStoreKey = booleanPreferencesKey(key!!)
-            getDefaultPreference()?.edit { settings ->
-                settings[dataStoreKey] = value ?: false
-            }
+        val dataStoreKey = booleanPreferencesKey(key!!)
+        getDefaultPreference()?.edit { settings ->
+            settings[dataStoreKey] = value ?: false
+        }
     }
 
     fun getStringFromStore(key: String?): Flow<String>? {
@@ -66,9 +71,9 @@ class DatastorePreference(
 
 
     suspend fun clearAllTheStore() {
-            getDefaultPreference()?.edit {
-                it.clear()
-            }
+        getDefaultPreference()?.edit {
+            it.clear()
+        }
     }
 
 
