@@ -66,16 +66,6 @@ dependencies {
         .encryption(encrypted = false)
         .build()
 ```
-##  Using encrypted datastore
-* First initialize the builder class:
-
-```kt
-     val store = SimpleStore.Builder()
-        .context(context = this)
-        .storeName("AnyName of your choice")
-        .encryption(encrypted = true)
-        .build()
-```
 
 * To save a string:
 ```kt
@@ -100,11 +90,9 @@ dependencies {
 * Get a string that you saved:
 ```kt
         lifecycleScope.launchWhenCreated {
-
+binding.sharedPreferenceValue.text = it
                 store.getType<DatastorePreference>()
-                    .getStringFromStore("name").collectLatest{
-                        binding.sharedPreferenceValue.text = it
-                    }
+                    .getStringFromStore("name").first()
             }
 ```
 
@@ -112,10 +100,8 @@ dependencies {
 ```kt
        val default = false
        lifecycleScope.launchWhenCreated {
-                store.getType<DatastorePreference>()
-                    .getBooleanFromStore("default").collectLatest{
-                        default = it
-                    }
+                default = store.getType<DatastorePreference>()
+                    .getBooleanFromStore("default").first()
             }
 ```
 
@@ -205,7 +191,7 @@ object AppModule {
     ) = SimpleStore.Builder()
         .context(context = context)
         .storeName("AnyName")
-        .encryption(encrypted = true)
+        .encryption(encrypted = false)
         .build()
 
 }
@@ -236,12 +222,10 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            lifecycleScope.launchWhenCreated {
-
+                  lifecycleScope.launchWhenCreated {
+binding.sharedPreferenceValue.text =
                 store.getType<DatastorePreference>()
-                    .getStringFromStore("name").collectLatest{
-                        binding.sharedPreferenceValue.text = it
-                    }
+                    .getStringFromStore("name").first()
             }
         }
     }
