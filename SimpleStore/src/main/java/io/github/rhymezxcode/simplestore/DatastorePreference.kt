@@ -13,6 +13,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.io.File
 
 private val Context.dataStore: DataStore<Preferences>
         by preferencesDataStore(SIMPLE_STORE)
@@ -26,8 +27,10 @@ class DatastorePreference(
     private val context: Context,
     private val encrypted: Boolean? = false
 ) {
-    private val exception = Exception("You have to state if your .encryption() " +
-            "is either true or false in your SimpleStore.builder()")
+    private val exception = Exception(
+        "You have to state if your .encryption() " +
+                "is either true or false in your SimpleStore.builder()"
+    )
 
     private inline fun <reified T> getDefaultPreference(): T {
         return when (encrypted) {
@@ -101,7 +104,7 @@ class DatastorePreference(
         }
     }
 
-    fun getBooleanFromStore(key: String?): Flow<Boolean>? {
+    fun getBooleanFromStore(key: String?): Flow<Boolean> {
         return when (encrypted) {
             true -> {
                 getDefaultPreference<DataStore<Store>>().data.map {
@@ -124,13 +127,7 @@ class DatastorePreference(
     suspend fun clearAllTheStore() {
         when (encrypted) {
             true -> {
-                getDefaultPreference<DataStore<Store>>().updateData {
-                    Store(
-                        null,
-                        null,
-                        null
-                    )
-                }
+                deleteDatastoreFile()
             }
 
             false -> {
@@ -141,6 +138,19 @@ class DatastorePreference(
 
             else -> throw exception
         }
+    }
+
+    private fun deleteDatastoreFile() {
+        val file = File(
+            context.filesDir,
+            "$DATASTORE_PATH$SIMPLE_STORE$PREFERENCE_EXTENSION"
+        )
+        file.delete()
+    }
+
+    companion object {
+        private const val DATASTORE_PATH = "datastore/"
+        private const val PREFERENCE_EXTENSION = ".json"
     }
 
 
