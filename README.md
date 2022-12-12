@@ -216,7 +216,7 @@ binding.sharedPreferenceValue.text =
 
 }
  ```
-
+Please note: Encrypted datastore is still in development, I will push a new version when it is ready!!!
 :pushpin: Please, feel free to give me a star :star2:, I also love sparkles :sparkles: :relaxed:
 <div align="center">
     <sub>Developed with :sparkling_heart: by
