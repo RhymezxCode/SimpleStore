@@ -48,7 +48,7 @@ pluginManagement {
 
 ```gradle
 dependencies {
-    implementation 'com.github.RhymezxCode:SimpleStore:1.0.3'
+    implementation 'com.github.RhymezxCode:SimpleStore:1.0.4'
 }
 ```
 
