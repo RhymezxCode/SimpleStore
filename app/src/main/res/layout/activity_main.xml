@@ -12,6 +12,73 @@
         android:layout_margin="16dp"
         tools:context=".MainActivity">
 
+        <Button
+            android:id="@+id/store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/store"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
+            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
+
+        <Button
+            android:id="@+id/store2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/store"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+        <Button
+            android:id="@+id/store3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/store"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName3"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/enter_your_name_here"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usage" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/enter_your_name_here"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName3"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/enter_your_name_here"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
         <TextView
             android:id="@+id/usage"
             android:layout_width="0dp"
@@ -29,16 +96,16 @@
             android:id="@+id/sharedPreferenceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/shared_preference"
+            android:layout_marginTop="100dp"
+            android:text="Data 1:"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/store" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
         <TextView
-            android:id="@+id/sharedPreferenceValue"
+            android:id="@+id/dataOneValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/null_"
@@ -53,15 +120,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="@string/encrypted_shared_preference"
+            android:text="Data 2:"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sharedPreferenceValue" />
+            app:layout_constraintTop_toBottomOf="@+id/dataOneValue" />
 
         <TextView
-            android:id="@+id/sharedPreferenceEncryptedValue"
+            android:id="@+id/dataTwoValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/null_"
@@ -76,15 +143,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="@string/datastore_preference"
+            android:text="Data 3:"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sharedPreferenceEncryptedValue" />
+            app:layout_constraintTop_toBottomOf="@+id/dataTwoValue" />
 
         <TextView
-            android:id="@+id/datastorePreferenceValue"
+            android:id="@+id/dataThreeValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/null_"
@@ -93,52 +160,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/datastorePreferenceLabel" />
-
-        <TextView
-            android:id="@+id/datastorePreferenceEncryptedLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/encrypted_datastore_preference"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/datastorePreferenceValue" />
-
-        <TextView
-            android:id="@+id/datastorePreferencEncryptedValue"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/null_"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/datastorePreferenceEncryptedLabel" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/enter_your_name_here"
-            android:inputType="textPersonName"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usage" />
-
-        <Button
-            android:id="@+id/store"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/store"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

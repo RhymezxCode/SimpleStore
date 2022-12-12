@@ -34,7 +34,8 @@ class DatastorePreference(
 
     private inline fun <reified T> getDefaultPreference(): T {
         return when (encrypted) {
-            true -> context.encryptedDatastore as T
+//            true -> context.encryptedDatastore as T
+            true -> throw Exception("Encrypted datastore feature is not ready for now, it is still on development.")
             false -> context.dataStore as T
             else -> throw exception
         }

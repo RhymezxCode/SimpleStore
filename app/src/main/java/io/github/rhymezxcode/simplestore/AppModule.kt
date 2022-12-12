@@ -20,7 +20,7 @@ object AppModule {
     ) = SimpleStore.Builder()
         .context(context = context)
         .storeName("AnyName")
-        .encryption(encrypted = true)
+        .encryption(encrypted = false)
         .build()
 
 
