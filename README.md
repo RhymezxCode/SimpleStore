@@ -146,22 +146,6 @@ binding.sharedPreferenceValue.text = it
             }
 ```
 
-* Get a string that you saved:
-```kt
-        lifecycleScope.launchWhenCreated {
-          binding.sharedPreferenceValue.text = store.getType<SharedPreference>()
-                    .getStringFromStore("name")
-            }
-```
-
-* Get a boolean that you saved:
-```kt
-       lifecycleScope.launchWhenCreated {
-        val default = store.getType<DatastorePreference>()
-                    .getBooleanFromStore("default")
-            }
-```
-
 * And Lastly, to clear your store for Datastore or SharedPreference:
 ```kt
        lifecycleScope.launchWhenCreated {
