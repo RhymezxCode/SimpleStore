@@ -22,9 +22,6 @@
 <a href="https://github.com/RhymezxCode/SimpleStore/commits?author=RhymezxCode" target="blank">
     <img src="https://img.shields.io/github/last-commit/RhymezxCode/SimpleStore" alt="SimpleStore Android Library Issues"/>
 </a>
-<a href="https://bettercodehub.com/edge/badge/RhymezxCode/SimpleStore?branch=main" target="blank">
-  <img src='https://bettercodehub.com/edge/badge/RhymezxCode/SimpleStore?branch=main'>
-</a>
 </div>
 <br />
 
