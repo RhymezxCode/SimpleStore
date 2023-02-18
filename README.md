@@ -22,9 +22,6 @@
 <a href="https://github.com/RhymezxCode/SimpleStore/commits?author=RhymezxCode" target="blank">
     <img src="https://img.shields.io/github/last-commit/RhymezxCode/SimpleStore" alt="SimpleStore Android Library Issues"/>
 </a>
-<a href="https://bettercodehub.com/edge/badge/RhymezxCode/SimpleStore?branch=main" target="blank">
-  <img src='https://bettercodehub.com/edge/badge/RhymezxCode/SimpleStore?branch=main'>
-</a>
 </div>
 <br />
 
@@ -42,13 +39,21 @@ pluginManagement {
         maven { url 'https://jitpack.io' }
     }
 }
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
 ```
 
 * And add it's dependency to your app level `build.gradle` file:
 
 ```gradle
 dependencies {
-    implementation 'com.github.RhymezxCode:SimpleStore:1.0.3'
+    implementation 'com.github.RhymezxCode:SimpleStore:1.0.4'
 }
 ```
 
@@ -64,16 +69,6 @@ dependencies {
         .context(context = this)
         .storeName("AnyName of your choice")
         .encryption(encrypted = false)
-        .build()
-```
-##  Using encrypted datastore
-* First initialize the builder class:
-
-```kt
-     val store = SimpleStore.Builder()
-        .context(context = this)
-        .storeName("AnyName of your choice")
-        .encryption(encrypted = true)
         .build()
 ```
 
@@ -100,11 +95,9 @@ dependencies {
 * Get a string that you saved:
 ```kt
         lifecycleScope.launchWhenCreated {
-
+binding.sharedPreferenceValue.text = it
                 store.getType<DatastorePreference>()
-                    .getStringFromStore("name").collectLatest{
-                        binding.sharedPreferenceValue.text = it
-                    }
+                    .getStringFromStore("name").first()
             }
 ```
 
@@ -112,10 +105,8 @@ dependencies {
 ```kt
        val default = false
        lifecycleScope.launchWhenCreated {
-                store.getType<DatastorePreference>()
-                    .getBooleanFromStore("default").collectLatest{
-                        default = it
-                    }
+                default = store.getType<DatastorePreference>()
+                    .getBooleanFromStore("default").first()
             }
 ```
 
@@ -160,22 +151,6 @@ dependencies {
             }
 ```
 
-* Get a string that you saved:
-```kt
-        lifecycleScope.launchWhenCreated {
-          binding.sharedPreferenceValue.text = store.getType<SharedPreference>()
-                    .getStringFromStore("name")
-            }
-```
-
-* Get a boolean that you saved:
-```kt
-       lifecycleScope.launchWhenCreated {
-        val default = store.getType<DatastorePreference>()
-                    .getBooleanFromStore("default")
-            }
-```
-
 * And Lastly, to clear your store for Datastore or SharedPreference:
 ```kt
        lifecycleScope.launchWhenCreated {
@@ -205,7 +180,7 @@ object AppModule {
     ) = SimpleStore.Builder()
         .context(context = context)
         .storeName("AnyName")
-        .encryption(encrypted = true)
+        .encryption(encrypted = false)
         .build()
 
 }
@@ -236,19 +211,17 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            lifecycleScope.launchWhenCreated {
-
+                  lifecycleScope.launchWhenCreated {
+binding.sharedPreferenceValue.text =
                 store.getType<DatastorePreference>()
-                    .getStringFromStore("name").collectLatest{
-                        binding.sharedPreferenceValue.text = it
-                    }
+                    .getStringFromStore("name").first()
             }
         }
     }
 
 }
  ```
-
+Please note: Encrypted datastore is still in development, I will push a new version when it is ready! <br><br>
 :pushpin: Please, feel free to give me a star :star2:, I also love sparkles :sparkles: :relaxed:
 <div align="center">
     <sub>Developed with :sparkling_heart: by
