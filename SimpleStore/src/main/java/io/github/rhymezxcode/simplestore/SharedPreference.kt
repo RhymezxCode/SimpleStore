@@ -41,7 +41,7 @@ class SharedPreference(
         }
     }
 
-    suspend fun saveStringToStore(key: String?, value: String?) {
+    fun saveStringToStore(key: String?, value: String?) {
         CoroutineScope(dispatcher?: IO).launch {
             val sharedPreferences = getDefaultPreference()
             val editor = sharedPreferences?.edit()
@@ -50,12 +50,82 @@ class SharedPreference(
         }
     }
 
-    suspend fun saveBooleanToStore(key: String?, value: String?) {
+    fun saveBooleanToStore(key: String?, value: String?) {
         CoroutineScope(dispatcher?: IO).launch {
             val sharedPreferences = getDefaultPreference()
             val editor = sharedPreferences?.edit()
-            editor?.putString(key, value)
-            editor?.apply()
+            if (value != null) {
+                editor?.putString(key, value)
+                editor?.apply()
+            }
+        }
+    }
+
+    fun saveIntToStore(key: String?, value: Int?) {
+        CoroutineScope(dispatcher?: IO).launch {
+            val sharedPreferences = getDefaultPreference()
+            val editor = sharedPreferences?.edit()
+            if (value != null) {
+                editor?.putInt(key, value)
+                editor?.apply()
+            }
+        }
+    }
+
+    fun saveFloatToStore(key: String?, value: Float?) {
+        CoroutineScope(dispatcher?: IO).launch {
+            val sharedPreferences = getDefaultPreference()
+            val editor = sharedPreferences?.edit()
+            if (value != null) {
+                editor?.putFloat(key, value)
+                editor?.apply()
+            }
+        }
+    }
+
+    fun saveLongToStore(key: String?, value: Long?) {
+        CoroutineScope(dispatcher?: IO).launch {
+            val sharedPreferences = getDefaultPreference()
+            val editor = sharedPreferences?.edit()
+            if (value != null) {
+                editor?.putLong(key, value)
+                editor?.apply()
+            }
+        }
+    }
+
+    fun saveStringSetToStore(key: String?, value: Set<String>?) {
+        CoroutineScope(dispatcher?: IO).launch {
+            val sharedPreferences = getDefaultPreference()
+            val editor = sharedPreferences?.edit()
+            if (value != null) {
+                editor?.putStringSet(key, value)
+                editor?.apply()
+            }
+        }
+    }
+
+    suspend fun getIntFromStore(key: String?): Int? {
+        return withContext(dispatcher?: IO){
+            getDefaultPreference()?.getInt(key, 0)
+        }
+    }
+
+    suspend fun getLongFromStore(key: String?): Long? {
+        return withContext(dispatcher?: IO){
+            getDefaultPreference()?.getLong(key, 0L)
+        }
+    }
+
+    suspend fun getFloatFromStore(key: String?): Float? {
+        return withContext(dispatcher?: IO){
+            getDefaultPreference()?.getFloat(key, 0.0F)
+        }
+    }
+
+    suspend fun getStringSetFromStore(key: String?): Set<String>? {
+        return withContext(dispatcher?: IO){
+            getDefaultPreference()?.getStringSet(key, setOf())
         }
     }
 

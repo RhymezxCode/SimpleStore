@@ -7,8 +7,13 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE
 import kotlinx.coroutines.flow.Flow
@@ -63,16 +68,126 @@ class DatastorePreference(
         }
     }
 
-    suspend fun saveBooleanToStore(key: String?, value: Boolean?) {
+    suspend fun saveIntToStore(key: String?, value: Int?) {
         when (encrypted) {
-            true -> {
-                getDefaultPreference<DataStore<Store>>().updateData {
-                    Store(
-                        key = key,
-                        bool = value
-                    )
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().updateData {
+//                    Store(
+//                        key = key,
+//                        value = value
+//                    )
+//                }
+//            }
+
+            false -> {
+                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                    val dataStoreKey = intPreferencesKey(key!!)
+                    settings[dataStoreKey] = value ?: 0
                 }
             }
+
+            else -> throw exception
+        }
+    }
+
+    suspend fun saveFloatToStore(key: String?, value: Float?) {
+        when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().updateData {
+//                    Store(
+//                        key = key,
+//                        value = value
+//                    )
+//                }
+//            }
+
+            false -> {
+                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                    val dataStoreKey = floatPreferencesKey(key!!)
+                    settings[dataStoreKey] = value ?: 0.0F
+                }
+            }
+
+            else -> throw exception
+        }
+    }
+
+    suspend fun saveLongToStore(key: String?, value: Long?) {
+        when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().updateData {
+//                    Store(
+//                        key = key,
+//                        value = value
+//                    )
+//                }
+//            }
+
+            false -> {
+                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                    val dataStoreKey = longPreferencesKey(key!!)
+                    settings[dataStoreKey] = value ?: 0L
+                }
+            }
+
+            else -> throw exception
+        }
+    }
+
+    suspend fun saveDoubleSetToStore(key: String?, value: Double?) {
+        when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().updateData {
+//                    Store(
+//                        key = key,
+//                        value = value
+//                    )
+//                }
+//            }
+
+            false -> {
+                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                    val dataStoreKey = doublePreferencesKey(key!!)
+                    settings[dataStoreKey] = value ?: 0.0
+                }
+            }
+
+            else -> throw exception
+        }
+    }
+
+    suspend fun saveStringSetToStore(key: String?, value: Set<String>?) {
+        when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().updateData {
+//                    Store(
+//                        key = key,
+//                        value = value
+//                    )
+//                }
+//            }
+
+            false -> {
+                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                    val dataStoreKey = stringSetPreferencesKey(key!!)
+                    settings[dataStoreKey] = value ?: setOf()
+                }
+            }
+
+            else -> throw exception
+        }
+    }
+
+    suspend fun saveBooleanToStore(key: String?, value: Boolean?) {
+        when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().updateData {
+//                    Store(
+//                        key = key,
+//                        bool = value
+//                    )
+//                }
+//            }
 
             false -> {
                 getDefaultPreference<DataStore<Preferences>>().edit { settings ->
@@ -86,13 +201,108 @@ class DatastorePreference(
 
     }
 
-    fun getStringFromStore(key: String?): Flow<String> {
+    fun getDoubleFromStore(key: String?): Flow<Double> {
         return when (encrypted) {
-            true -> {
-                getDefaultPreference<DataStore<Store>>().data.map {
-                    it.value ?: ""
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().data.map {
+//                    it.value ?: ""
+//                }
+//            }
+
+            false -> {
+                val dataStoreKey = doublePreferencesKey(key!!)
+                getDefaultPreference<DataStore<Preferences>>().data.map {
+                    it[dataStoreKey] ?: 0.0
                 }
             }
+
+            else -> throw exception
+        }
+    }
+
+    fun getIntFromStore(key: String?): Flow<Int> {
+        return when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().data.map {
+//                    it.value ?: ""
+//                }
+//            }
+
+            false -> {
+                val dataStoreKey = intPreferencesKey(key!!)
+                getDefaultPreference<DataStore<Preferences>>().data.map {
+                    it[dataStoreKey] ?: 0
+                }
+            }
+
+            else -> throw exception
+        }
+    }
+
+    fun getLongFromStore(key: String?): Flow<Long> {
+        return when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().data.map {
+//                    it.value ?: ""
+//                }
+//            }
+
+            false -> {
+                val dataStoreKey = longPreferencesKey(key!!)
+                getDefaultPreference<DataStore<Preferences>>().data.map {
+                    it[dataStoreKey] ?: 0L
+                }
+            }
+
+            else -> throw exception
+        }
+    }
+
+    fun getFloatFromStore(key: String?): Flow<Float> {
+        return when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().data.map {
+//                    it.value ?: ""
+//                }
+//            }
+
+            false -> {
+                val dataStoreKey = floatPreferencesKey(key!!)
+                getDefaultPreference<DataStore<Preferences>>().data.map {
+                    it[dataStoreKey] ?: 0.0F
+                }
+            }
+
+            else -> throw exception
+        }
+    }
+
+    fun getStringSetFromStore(key: String?): Flow<Set<String>> {
+        return when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().data.map {
+//                    it.value ?: ""
+//                }
+//            }
+
+            false -> {
+                val dataStoreKey = stringSetPreferencesKey(key!!)
+                getDefaultPreference<DataStore<Preferences>>().data.map {
+                    it[dataStoreKey] ?: setOf()
+                }
+            }
+
+            else -> throw exception
+        }
+    }
+
+    fun getStringFromStore(key: String?): Flow<String> {
+        return when (encrypted) {
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().data.map {
+//                    it.value ?: ""
+//                }
+//            }
 
             false -> {
                 val dataStoreKey = stringPreferencesKey(key!!)
@@ -107,11 +317,11 @@ class DatastorePreference(
 
     fun getBooleanFromStore(key: String?): Flow<Boolean> {
         return when (encrypted) {
-            true -> {
-                getDefaultPreference<DataStore<Store>>().data.map {
-                    it.bool ?: false
-                }
-            }
+//            true -> {
+//                getDefaultPreference<DataStore<Store>>().data.map {
+//                    it.bool ?: false
+//                }
+//            }
 
             false -> {
                 val dataStoreKey = booleanPreferencesKey(key!!)
@@ -127,9 +337,9 @@ class DatastorePreference(
 
     suspend fun clearAllTheStore() {
         when (encrypted) {
-            true -> {
-                deleteDatastoreFile()
-            }
+//            true -> {
+//                deleteDatastoreFile()
+//            }
 
             false -> {
                 getDefaultPreference<DataStore<Preferences>>().edit {
