@@ -9,7 +9,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 class SimpleStore(
     private val context: Context?,
     private val encrypted: Boolean?,
-    private val dispatcher: CoroutineDispatcher?
+    private val dispatcher: CoroutineDispatcher?,
+    private val enableCloud: Boolean? = null
 ) {
 
     @Suppress("NON_PUBLIC_CALL_FROM_PUBLIC_INLINE")
@@ -44,7 +45,8 @@ class SimpleStore(
     private fun blockStore(): BlockStore? {
         return context?.let {
             BlockStore(
-                context = it
+                context = it,
+                enableCloud = enableCloud?: false
             )
         }
     }

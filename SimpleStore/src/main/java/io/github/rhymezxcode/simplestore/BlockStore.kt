@@ -1,4 +1,5 @@
 @file:Suppress("NewAPI")
+
 package io.github.rhymezxcode.simplestore
 
 import android.content.ContentValues
@@ -23,7 +24,8 @@ import kotlinx.coroutines.withContext
 import java.util.Arrays
 
 class BlockStore(
-    private val context: Context
+    private val context: Context,
+    private val enableCloud: Boolean
 ) {
 
     private fun getClient(): BlockstoreClient {
@@ -32,23 +34,69 @@ class BlockStore(
 
     fun saveByteArrayToStore(key: String?, value: ByteArray): Boolean {
         var status = false
+
+        val storeRequest = StoreBytesData.Builder()
+            .setBytes(value) // Call this method to set the key value with which the data should be associated with.
+            .setKey(key ?: BlockstoreClient.DEFAULT_BYTES_DATA_KEY)
+            .build()
+
         try {
-            val storeRequest = StoreBytesData.Builder()
-                .setBytes(value) // Call this method to set the key value with which the data should be associated with.
-                .setKey(key ?: BlockstoreClient.DEFAULT_BYTES_DATA_KEY)
-                .build()
-            getClient().storeBytes(storeRequest)
-                .addOnSuccessListener { result: Int ->
-                    Log.d(
-                        TAG,
-                        "Stored $result bytes"
-                    )
-                    status = true
+            when (enableCloud) {
+                true -> {
+                    getClient().isEndToEndEncryptionAvailable
+                        .addOnSuccessListener { isE2EEAvailable ->
+                            if (isE2EEAvailable) {
+                                if(storeRequest.shouldBackupToCloud()) {
+                                    Log.d(
+                                        TAG,
+                                        "E2EE is available, enable backing up bytes to the cloud."
+                                    )
+
+                                    getClient().storeBytes(storeRequest)
+                                        .addOnSuccessListener { result: Int ->
+                                            Log.d(
+                                                TAG,
+                                                "Stored $result bytes"
+                                            )
+                                            status = true
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.e(TAG, "Failed to store bytes", e)
+                                            status = false
+                                        }
+                                }else{
+                                    Log.d(
+                                        TAG,
+                                        "Failed to store bytes"
+                                    )
+                                    status = false
+                                }
+
+                            } else {
+                                Log.d(
+                                    TAG,
+                                    "E2EE is not available, only store bytes for D2D restore."
+                                )
+                            }
+                        }
                 }
-                .addOnFailureListener { e ->
-                    Log.e(TAG, "Failed to store bytes", e)
-                    status = false
+
+                else -> {
+                    getClient().storeBytes(storeRequest)
+                        .addOnSuccessListener { result: Int ->
+                            Log.d(
+                                TAG,
+                                "Stored $result bytes"
+                            )
+                            status = true
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e(TAG, "Failed to store bytes", e)
+                            status = false
+                        }
                 }
+            }
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -88,6 +136,16 @@ class BlockStore(
                 total = null
             }
         return total
+    }
+
+    fun checkIfEndToEndEncryptionIsAvailable(): Boolean{
+        var status = false
+        getClient().isEndToEndEncryptionAvailable
+            .addOnSuccessListener { result ->
+                Log.d(TAG, "Will Block Store cloud backup be end-to-end encrypted? $result")
+                status = result
+            }
+        return status
     }
 
     fun getEveryThingFromStore(): ByteArray? {
@@ -132,8 +190,10 @@ class BlockStore(
 
         getClient().deleteBytes(retrieveRequest)
             .addOnSuccessListener { result: Boolean ->
-                Log.d(TAG,
-                    "Any data found and deleted? $result")
+                Log.d(
+                    TAG,
+                    "Any data found and deleted? $result"
+                )
                 status = result
             }
         return status
@@ -146,8 +206,10 @@ class BlockStore(
             .build()
         getClient().deleteBytes(deleteAllRequest)
             .addOnSuccessListener { result: Boolean ->
-                Log.d(TAG,
-                    "Any data found and deleted? $result")
+                Log.d(
+                    TAG,
+                    "Any data found and deleted? $result"
+                )
                 status = result
             }
         return status
