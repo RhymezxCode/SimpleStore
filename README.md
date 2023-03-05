@@ -156,7 +156,6 @@ binding.sharedPreferenceValue.text = store.getType<DatastorePreference>()
 ```kt
      val store = SimpleStore.Builder()
         .context(context = this)
-        .storeName("AnyName of your choice")
         .enableCloudForBlockStore(true)
         .build()
 ```
