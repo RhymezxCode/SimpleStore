@@ -185,7 +185,7 @@ binding.sharedPreferenceValue.text = store.getType<BlockStore>()
 ```
        
 
-* And Lastly, to clear your BlockStore:
+* To clear your BlockStore:
 ```kt
        lifecycleScope.launch{
         val default = store.getType<BlockStore>()
@@ -197,8 +197,11 @@ binding.sharedPreferenceValue.text = store.getType<BlockStore>()
                     //your data is not cleared
                 }  
             }
-            
-            lifecycleScope.launch{
+```
+
+* To delete a specific key data from your BlockStore:
+```kt     
+  lifecycleScope.launch{
         val default = store.getType<BlockStore>()
                     .deleteByKey("key name")
 
