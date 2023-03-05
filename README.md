@@ -95,8 +95,7 @@ dependencies {
 * Get a string that you saved:
 ```kt
         lifecycleScope.launchWhenCreated {
-binding.sharedPreferenceValue.text = it
-                store.getType<DatastorePreference>()
+binding.sharedPreferenceValue.text = store.getType<DatastorePreference>()
                     .getStringFromStore("name").first()
             }
 ```
