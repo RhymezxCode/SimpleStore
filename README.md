@@ -156,6 +156,13 @@ binding.sharedPreferenceValue.text = store.getType<DatastorePreference>()
 ```kt
      val store = SimpleStore.Builder()
         .context(context = this)
+        .build()
+```
+* enable cloud with E2E encryption from the builder class:
+
+```kt
+     val store = SimpleStore.Builder()
+        .context(context = this)
         .enableCloudForBlockStore(true)
         .build()
 ```
