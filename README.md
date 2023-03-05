@@ -150,16 +150,57 @@ binding.sharedPreferenceValue.text = store.getType<DatastorePreference>()
             }
 ```
 
-* And Lastly, to clear your store for Datastore or SharedPreference:
+##  Using BlockStore
+* First initialize the builder class:
+
 ```kt
-       lifecycleScope.launchWhenCreated {
-        val default = store.getType<DatastorePreference>()
+     val store = SimpleStore.Builder()
+        .context(context = this)
+        .storeName("AnyName of your choice")
+        .enableCloudForBlockStore(true)
+        .build()
+```
+
+* To save a byteArray:
+```kt
+       lifecycleScope.launch {
+                store.getType<BlockStore>().saveByteArrayToStore(
+                    "name",
+                    byteArrayOf(1, 2, 3, 4)
+                )
+            }
+```
+
+* Get the byteArray that you saved:
+```kt
+        lifecycleScope.launch{
+binding.sharedPreferenceValue.text = store.getType<BlockStore>()
+                    .getByteArrayFromStore("name")
+```
+       
+
+* And Lastly, to clear your BlockStore:
+```kt
+       lifecycleScope.launch{
+        val default = store.getType<BlockStore>()
                     .clearAllTheStore()
+                    
+                if(default){
+                    //your data is cleared
+                    }else{
+                    //your data is not cleared
+                }  
             }
             
-            lifecycleScope.launchWhenCreated {
-        val default = store.getType<SharedPreference>()
-                    .clearAllTheStore()
+            lifecycleScope.launch{
+        val default = store.getType<BlockStore>()
+                    .deleteByKey("key name")
+
+                if(default){
+                    //your specific key data is deleted
+                    }else{
+                   //your specific key data is not deleted
+                 }  
             }
 ```
     
