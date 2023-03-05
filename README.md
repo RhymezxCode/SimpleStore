@@ -26,7 +26,7 @@
 <br />
 
 ## SimpleStore Android Library
-A library to create either a shared preference or data store. it has the ability to encrypt on a go, by just signifying on the builder class.
+A library to create shared preference, data store and block store. it has the ability to encrypt on a go, by just signifying on the builder class.
 
 ### 1. Adding SimpleStore to your project
 
