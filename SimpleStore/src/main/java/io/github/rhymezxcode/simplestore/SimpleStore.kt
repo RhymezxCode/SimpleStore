@@ -52,7 +52,7 @@ class SimpleStore(
     }
 
     private constructor(builder: Builder) : this(
-        builder.context, builder.encrypted, builder.dispatcher
+        builder.context, builder.encrypted, builder.dispatcher, builder.enableCloud
     )
 
     class Builder {
@@ -62,7 +62,8 @@ class SimpleStore(
             private set
         var encrypted: Boolean? = null
             private set
-
+        var enableCloud: Boolean? = null
+            private set
         var dispatcher: CoroutineDispatcher? = null
             private set
 
@@ -73,6 +74,8 @@ class SimpleStore(
         fun dispatcher(dispatcher: CoroutineDispatcher) = apply { this.dispatcher = dispatcher }
 
         fun encryption(encrypted: Boolean) = apply { this.encrypted = encrypted }
+
+        fun enableCloudForBlockStore(enableCloud: Boolean) = apply { this.enableCloud = enableCloud }
 
         fun build() = SimpleStore(this)
     }
