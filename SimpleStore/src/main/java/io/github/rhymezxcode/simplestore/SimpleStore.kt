@@ -17,6 +17,7 @@ class SimpleStore(
         return when (T::class.java) {
             SharedPreference::class.java -> sharedPreference() as T
             DatastorePreference::class.java -> datastorePreference() as T
+            BlockStore::class.java -> blockStore() as T
             else -> throw Exception("Unhandled return type for preference")
         }
     }
@@ -36,6 +37,14 @@ class SimpleStore(
             DatastorePreference(
                 context = it,
                 encrypted = encrypted
+            )
+        }
+    }
+
+    private fun blockStore(): BlockStore? {
+        return context?.let {
+            BlockStore(
+                context = it
             )
         }
     }

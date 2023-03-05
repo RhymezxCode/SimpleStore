@@ -44,8 +44,10 @@ android {
 dependencies {
     //DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+    //BlockStore
+    implementation 'com.google.android.gms:play-services-auth-blockstore:16.2.0'
     //Encryption
-    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha04'
+    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha05'
     //Serialization
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2'
 }
