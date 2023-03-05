@@ -56,10 +56,10 @@ class BlockStore(
     }
 
 
-    fun getByteArrayFromStore(key: String?): ByteArray? {
+    fun getByteArrayFromStore(key1: String?): ByteArray? {
         var total: ByteArray? = null
         val requestedKeys =
-            listOf(key ?: BlockstoreClient.DEFAULT_BYTES_DATA_KEY) // Add keys to array
+            listOf(key1 ?: BlockstoreClient.DEFAULT_BYTES_DATA_KEY) // Add keys to array
 
         val retrieveRequest = RetrieveBytesRequest.Builder()
             .setKeys(requestedKeys)
