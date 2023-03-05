@@ -212,12 +212,12 @@ binding.sharedPreferenceValue.text = store.getType<BlockStore>()
     
 ### 3. You can also inject SimpleStore, and use it everywhere in your app with Hilt :syringe: :
 
-* Create an object for the NetworkStateModule in your di package:
+* Create an object for SimpleStoreModule in your di package:
 
 ```kt
 @InstallIn(SingletonComponent::class)
 @Module
-object AppModule {
+object SimpleStoreModule{
 
     @Provides
     @Singleton
