@@ -4,24 +4,14 @@ package io.github.rhymezxcode.simplestore
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.SharedPreferences
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.google.android.gms.auth.blockstore.Blockstore
 import com.google.android.gms.auth.blockstore.BlockstoreClient
 import com.google.android.gms.auth.blockstore.DeleteBytesRequest
 import com.google.android.gms.auth.blockstore.RetrieveBytesRequest
 import com.google.android.gms.auth.blockstore.RetrieveBytesResponse
 import com.google.android.gms.auth.blockstore.StoreBytesData
-import io.github.rhymezxcode.simplestore.Constants.SIMPLE_STORE
 import io.github.rhymezxcode.simplestore.Constants.TAG
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.Arrays
 
 class BlockStore(
     private val context: Context,

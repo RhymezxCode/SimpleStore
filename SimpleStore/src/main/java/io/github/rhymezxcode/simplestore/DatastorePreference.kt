@@ -37,7 +37,7 @@ class DatastorePreference(
                 "is either true or false in your SimpleStore.builder()"
     )
 
-    private inline fun <reified T> getDefaultPreference(): T {
+    private inline fun <reified T> getdefaultPreference(): T {
         return when (encrypted) {
 //            true -> context.encryptedDatastore as T
             true -> throw Exception("Encrypted datastore feature is not ready for now, it is still on development.")
@@ -49,7 +49,7 @@ class DatastorePreference(
     suspend fun saveStringToStore(key: String?, value: String?) {
         when (encrypted) {
             true -> {
-                getDefaultPreference<DataStore<Store>>().updateData {
+                getdefaultPreference<DataStore<Store>>().updateData {
                     Store(
                         key = key,
                         value = value
@@ -58,7 +58,7 @@ class DatastorePreference(
             }
 
             false -> {
-                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                getdefaultPreference<DataStore<Preferences>>().edit { settings ->
                     val dataStoreKey = stringPreferencesKey(key!!)
                     settings[dataStoreKey] = value ?: ""
                 }
@@ -71,7 +71,7 @@ class DatastorePreference(
     suspend fun saveIntToStore(key: String?, value: Int?) {
         when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().updateData {
+//                getdefaultPreference<DataStore<Store>>().updateData {
 //                    Store(
 //                        key = key,
 //                        value = value
@@ -80,7 +80,7 @@ class DatastorePreference(
 //            }
 
             false -> {
-                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                getdefaultPreference<DataStore<Preferences>>().edit { settings ->
                     val dataStoreKey = intPreferencesKey(key!!)
                     settings[dataStoreKey] = value ?: 0
                 }
@@ -93,7 +93,7 @@ class DatastorePreference(
     suspend fun saveFloatToStore(key: String?, value: Float?) {
         when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().updateData {
+//                getdefaultPreference<DataStore<Store>>().updateData {
 //                    Store(
 //                        key = key,
 //                        value = value
@@ -102,7 +102,7 @@ class DatastorePreference(
 //            }
 
             false -> {
-                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                getdefaultPreference<DataStore<Preferences>>().edit { settings ->
                     val dataStoreKey = floatPreferencesKey(key!!)
                     settings[dataStoreKey] = value ?: 0.0F
                 }
@@ -115,7 +115,7 @@ class DatastorePreference(
     suspend fun saveLongToStore(key: String?, value: Long?) {
         when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().updateData {
+//                getdefaultPreference<DataStore<Store>>().updateData {
 //                    Store(
 //                        key = key,
 //                        value = value
@@ -124,7 +124,7 @@ class DatastorePreference(
 //            }
 
             false -> {
-                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                getdefaultPreference<DataStore<Preferences>>().edit { settings ->
                     val dataStoreKey = longPreferencesKey(key!!)
                     settings[dataStoreKey] = value ?: 0L
                 }
@@ -137,7 +137,7 @@ class DatastorePreference(
     suspend fun saveDoubleSetToStore(key: String?, value: Double?) {
         when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().updateData {
+//                getdefaultPreference<DataStore<Store>>().updateData {
 //                    Store(
 //                        key = key,
 //                        value = value
@@ -146,7 +146,7 @@ class DatastorePreference(
 //            }
 
             false -> {
-                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                getdefaultPreference<DataStore<Preferences>>().edit { settings ->
                     val dataStoreKey = doublePreferencesKey(key!!)
                     settings[dataStoreKey] = value ?: 0.0
                 }
@@ -159,7 +159,7 @@ class DatastorePreference(
     suspend fun saveStringSetToStore(key: String?, value: Set<String>?) {
         when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().updateData {
+//                getdefaultPreference<DataStore<Store>>().updateData {
 //                    Store(
 //                        key = key,
 //                        value = value
@@ -168,7 +168,7 @@ class DatastorePreference(
 //            }
 
             false -> {
-                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                getdefaultPreference<DataStore<Preferences>>().edit { settings ->
                     val dataStoreKey = stringSetPreferencesKey(key!!)
                     settings[dataStoreKey] = value ?: setOf()
                 }
@@ -181,7 +181,7 @@ class DatastorePreference(
     suspend fun saveBooleanToStore(key: String?, value: Boolean?) {
         when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().updateData {
+//                getdefaultPreference<DataStore<Store>>().updateData {
 //                    Store(
 //                        key = key,
 //                        bool = value
@@ -190,7 +190,7 @@ class DatastorePreference(
 //            }
 
             false -> {
-                getDefaultPreference<DataStore<Preferences>>().edit { settings ->
+                getdefaultPreference<DataStore<Preferences>>().edit { settings ->
                     val dataStoreKey = booleanPreferencesKey(key!!)
                     settings[dataStoreKey] = value ?: false
                 }
@@ -204,14 +204,14 @@ class DatastorePreference(
     fun getDoubleFromStore(key: String?): Flow<Double> {
         return when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().data.map {
+//                getdefaultPreference<DataStore<Store>>().data.map {
 //                    it.value ?: ""
 //                }
 //            }
 
             false -> {
                 val dataStoreKey = doublePreferencesKey(key!!)
-                getDefaultPreference<DataStore<Preferences>>().data.map {
+                getdefaultPreference<DataStore<Preferences>>().data.map {
                     it[dataStoreKey] ?: 0.0
                 }
             }
@@ -223,14 +223,14 @@ class DatastorePreference(
     fun getIntFromStore(key: String?): Flow<Int> {
         return when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().data.map {
+//                getdefaultPreference<DataStore<Store>>().data.map {
 //                    it.value ?: ""
 //                }
 //            }
 
             false -> {
                 val dataStoreKey = intPreferencesKey(key!!)
-                getDefaultPreference<DataStore<Preferences>>().data.map {
+                getdefaultPreference<DataStore<Preferences>>().data.map {
                     it[dataStoreKey] ?: 0
                 }
             }
@@ -242,14 +242,14 @@ class DatastorePreference(
     fun getLongFromStore(key: String?): Flow<Long> {
         return when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().data.map {
+//                getdefaultPreference<DataStore<Store>>().data.map {
 //                    it.value ?: ""
 //                }
 //            }
 
             false -> {
                 val dataStoreKey = longPreferencesKey(key!!)
-                getDefaultPreference<DataStore<Preferences>>().data.map {
+                getdefaultPreference<DataStore<Preferences>>().data.map {
                     it[dataStoreKey] ?: 0L
                 }
             }
@@ -261,14 +261,14 @@ class DatastorePreference(
     fun getFloatFromStore(key: String?): Flow<Float> {
         return when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().data.map {
+//                getdefaultPreference<DataStore<Store>>().data.map {
 //                    it.value ?: ""
 //                }
 //            }
 
             false -> {
                 val dataStoreKey = floatPreferencesKey(key!!)
-                getDefaultPreference<DataStore<Preferences>>().data.map {
+                getdefaultPreference<DataStore<Preferences>>().data.map {
                     it[dataStoreKey] ?: 0.0F
                 }
             }
@@ -280,14 +280,14 @@ class DatastorePreference(
     fun getStringSetFromStore(key: String?): Flow<Set<String>> {
         return when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().data.map {
+//                getdefaultPreference<DataStore<Store>>().data.map {
 //                    it.value ?: ""
 //                }
 //            }
 
             false -> {
                 val dataStoreKey = stringSetPreferencesKey(key!!)
-                getDefaultPreference<DataStore<Preferences>>().data.map {
+                getdefaultPreference<DataStore<Preferences>>().data.map {
                     it[dataStoreKey] ?: setOf()
                 }
             }
@@ -299,14 +299,14 @@ class DatastorePreference(
     fun getStringFromStore(key: String?): Flow<String> {
         return when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().data.map {
+//                getdefaultPreference<DataStore<Store>>().data.map {
 //                    it.value ?: ""
 //                }
 //            }
 
             false -> {
                 val dataStoreKey = stringPreferencesKey(key!!)
-                getDefaultPreference<DataStore<Preferences>>().data.map {
+                getdefaultPreference<DataStore<Preferences>>().data.map {
                     it[dataStoreKey] ?: ""
                 }
             }
@@ -318,14 +318,14 @@ class DatastorePreference(
     fun getBooleanFromStore(key: String?): Flow<Boolean> {
         return when (encrypted) {
 //            true -> {
-//                getDefaultPreference<DataStore<Store>>().data.map {
+//                getdefaultPreference<DataStore<Store>>().data.map {
 //                    it.bool ?: false
 //                }
 //            }
 
             false -> {
                 val dataStoreKey = booleanPreferencesKey(key!!)
-                getDefaultPreference<DataStore<Preferences>>().data.map {
+                getdefaultPreference<DataStore<Preferences>>().data.map {
                     it[dataStoreKey] ?: false
                 }
             }
@@ -342,7 +342,7 @@ class DatastorePreference(
 //            }
 
             false -> {
-                getDefaultPreference<DataStore<Preferences>>().edit {
+                getdefaultPreference<DataStore<Preferences>>().edit {
                     it.clear()
                 }
             }
