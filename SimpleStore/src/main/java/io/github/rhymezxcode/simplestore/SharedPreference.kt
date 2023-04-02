@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SharedPreference(
+    private val name: String? = null,
     private val context: Context,
     private val encrypted: Boolean? = false,
     private val dispatcher: CoroutineDispatcher? = null
@@ -20,7 +21,7 @@ class SharedPreference(
     private fun getSharedPreferences(): SharedPreferences? {
         try {
             return context.getSharedPreferences(
-                SIMPLE_STORE,
+               name?: SIMPLE_STORE,
                 Context.MODE_PRIVATE
             )
         } catch (e: Exception) {

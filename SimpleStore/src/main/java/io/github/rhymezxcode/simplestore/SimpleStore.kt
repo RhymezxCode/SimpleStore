@@ -2,12 +2,11 @@
 package io.github.rhymezxcode.simplestore
 
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import kotlinx.coroutines.CoroutineDispatcher
 
 class SimpleStore(
     private val context: Context?,
+    private val name: String?,
     private val encrypted: Boolean?,
     private val dispatcher: CoroutineDispatcher?,
     private val enableCloud: Boolean? = null
@@ -26,6 +25,7 @@ class SimpleStore(
     private fun sharedPreference(): SharedPreference? {
         return context?.let {
             SharedPreference(
+                name = name,
                 context = it,
                 encrypted = encrypted,
                 dispatcher = dispatcher
@@ -36,6 +36,7 @@ class SimpleStore(
     private fun datastorePreference(): DatastorePreference? {
         return context?.let {
             DatastorePreference(
+                name = name,
                 context = it,
                 encrypted = encrypted
             )
@@ -52,7 +53,7 @@ class SimpleStore(
     }
 
     private constructor(builder: Builder) : this(
-        builder.context, builder.encrypted, builder.dispatcher, builder.enableCloud
+        builder.context, builder.name, builder.encrypted, builder.dispatcher, builder.enableCloud
     )
 
     class Builder {
@@ -69,7 +70,7 @@ class SimpleStore(
 
         fun context(context: Context) = apply { this.context = context }
 
-        fun storeName(name: String) = apply { Constants.SIMPLE_STORE = name }
+        fun storeName(name: String) = apply { this.name = name }
 
         fun dispatcher(dispatcher: CoroutineDispatcher) = apply { this.dispatcher = dispatcher }
 

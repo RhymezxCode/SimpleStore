@@ -20,18 +20,24 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.io.File
 
+
 private val Context.dataStore: DataStore<Preferences>
         by preferencesDataStore(SIMPLE_STORE)
 
 private val Context.encryptedDatastore by dataStore(
-    fileName = "$SIMPLE_STORE.json",
+    fileName = "${SIMPLE_STORE}.json",
     serializer = SimpleStoreSerializer(CryptoManager())
 )
 
 class DatastorePreference(
+    val name: String? = null,
     private val context: Context,
     private val encrypted: Boolean? = false
 ) {
+    init {
+        SIMPLE_STORE = name?:"SimpleStore"
+    }
+
     private val exception = Exception(
         "You have to state if your .encryption() " +
                 "is either true or false in your SimpleStore.builder()"
