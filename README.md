@@ -53,7 +53,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation 'com.github.RhymezxCode:SimpleStore:1.0.9'
+    implementation 'com.github.RhymezxCode:SimpleStore:1.1.0'
 }
 ```
 
