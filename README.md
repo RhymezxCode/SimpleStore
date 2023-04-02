@@ -26,7 +26,7 @@
 <br />
 
 ## SimpleStore Android Library
-A library to create either a shared preference or data store. it has the ability to encrypt on a go, by just signifying on the builder class.
+A library to create shared preference, data store and block store. it has the ability to encrypt on a go, by just signifying on the builder class.
 
 ### 1. Adding SimpleStore to your project
 
@@ -53,7 +53,7 @@ dependencyResolutionManagement {
 
 ```gradle
 dependencies {
-    implementation 'com.github.RhymezxCode:SimpleStore:1.0.6'
+    implementation 'com.github.RhymezxCode:SimpleStore:1.0.9'
 }
 ```
 
@@ -150,27 +150,77 @@ binding.sharedPreferenceValue.text = store.getType<DatastorePreference>()
             }
 ```
 
-* And Lastly, to clear your store for Datastore or SharedPreference:
+##  Using BlockStore
+* First initialize the builder class:
+
 ```kt
-       lifecycleScope.launchWhenCreated {
-        val default = store.getType<DatastorePreference>()
-                    .clearAllTheStore()
+     val store = SimpleStore.Builder()
+        .context(context = this)
+        .build()
+```
+* enable cloud with E2E encryption from the builder class:
+
+```kt
+     val store = SimpleStore.Builder()
+        .context(context = this)
+        .enableCloudForBlockStore(true)
+        .build()
+```
+
+* To save a byteArray:
+```kt
+       lifecycleScope.launch {
+                store.getType<BlockStore>().saveByteArrayToStore(
+                    "name",
+                    byteArrayOf(1, 2, 3, 4)
+                )
             }
-            
-            lifecycleScope.launchWhenCreated {
-        val default = store.getType<SharedPreference>()
+```
+
+* Get the byteArray that you saved:
+```kt
+        lifecycleScope.launch{
+binding.sharedPreferenceValue.text = store.getType<BlockStore>()
+                    .getByteArrayFromStore("name")
+```
+       
+
+* To clear your BlockStore:
+```kt
+       lifecycleScope.launch{
+        val default = store.getType<BlockStore>()
                     .clearAllTheStore()
+                    
+                if(default){
+                    //your data is cleared
+                    }else{
+                    //your data is not cleared
+                }  
+            }
+```
+
+* To delete a specific key data from your BlockStore:
+```kt     
+  lifecycleScope.launch{
+        val default = store.getType<BlockStore>()
+                    .deleteByKey("key name")
+
+                if(default){
+                    //your specific key data is deleted
+                    }else{
+                   //your specific key data is not deleted
+                 }  
             }
 ```
     
 ### 3. You can also inject SimpleStore, and use it everywhere in your app with Hilt :syringe: :
 
-* Create an object for the NetworkStateModule in your di package:
+* Create an object for SimpleStoreModule in your di package:
 
 ```kt
 @InstallIn(SingletonComponent::class)
 @Module
-object AppModule {
+object SimpleStoreModule{
 
     @Provides
     @Singleton
