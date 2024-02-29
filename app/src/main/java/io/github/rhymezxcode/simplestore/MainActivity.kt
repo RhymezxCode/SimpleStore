@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@RequiresApi(Build.VERSION_CODES.M)
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,9 +34,13 @@ class MainActivity : AppCompatActivity() {
                     "name",
                     binding.editTextTextPersonName.text.toString()
                 )
+                store.getType<SharedPreference>().saveBooleanToStore(
+                    "bool",
+                    true
+                )
             }
-
         }
+
         binding.store2.setOnClickListener {
             lifecycleScope.launch {
                 store.getType<DatastorePreference>().saveStringToStore(
@@ -45,8 +48,8 @@ class MainActivity : AppCompatActivity() {
                     binding.editTextTextPersonName2.text.toString()
                 )
             }
-
         }
+
         binding.store3.setOnClickListener {
             lifecycleScope.launch {
                 store.getType<DatastorePreference>().saveStringToStore(
@@ -54,13 +57,11 @@ class MainActivity : AppCompatActivity() {
                     binding.editTextTextPersonName3.text.toString()
                 )
             }
-
         }
 
-        lifecycleScope.launchWhenCreated {
-
-            binding.dataOneValue.text = store.getType<DatastorePreference>()
-                .getStringFromStore("name").first()
+        lifecycleScope.launch {
+            binding.dataOneValue.text = store.getType<SharedPreference>()
+                .getBooleanFromStore("bool").toString()
 
             binding.dataTwoValue.text = store.getType<DatastorePreference>()
                 .getStringFromStore("yes").first()
